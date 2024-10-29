@@ -1,0 +1,38 @@
+{
+  "name": "prisma-mysql-comments-generator",
+  "version": "1.0.0",
+  "description": "Generate database comments from Prisma schema to a MySQL database",
+  "type": "module",
+  "bin": {
+    "prisma-mysql-comments-generator": "./dist/generator.js"
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thelinuxlich/prisma-mysql-comments-generator.git"
+  },
+  "keywords": [
+    "prisma",
+    "generator",
+    "mysql"
+  ],
+  "author": "thelinuxlich",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thelinuxlich/prisma-mysql-comments-generator/issues"
+  },
+  "homepage": "https://github.com/thelinuxlich/prisma-mysql-comments-generator#readme",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@prisma/generator-helper": "^5.0.0",
+    "go-go-try": "^5.0.0",
+    "@mrleebo/prisma-ast": "^0.12.0"
+  }
+}
