@@ -126,10 +126,10 @@ export async function generate({
 		)
 		const date = new Date()
 		date.setMilliseconds(0)
-		const dateStr = date
+		const dateStr = String(Number(date
 			.toISOString()
 			.replace(/[:\-TZ]/g, '')
-			.replace('.000', '')
+			.replace('.000', '')) + 1)
 		const migrationDir = `${outputDir}/migrations/${dateStr}_update_comments`
 		console.log(
 			`Lock file changed, creating a new migration at ${migrationDir}...`,

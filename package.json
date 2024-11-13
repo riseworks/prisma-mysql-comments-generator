@@ -1,6 +1,6 @@
 {
   "name": "prisma-mysql-comments-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate database comments from Prisma schema to a MySQL database",
   "type": "module",
   "bin": {
