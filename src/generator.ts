@@ -85,7 +85,11 @@ DEALLOCATE PREPARE alterIfExists;
 			const commentTemplate = `
 SET @preparedStatement = (SELECT IF(EXISTS
   (
-    SHOW COLUMNS FROM ${modelName} LIKE '${fieldName}'
+    SELECT table_name 
+            FROM INFORMATION_SCHEMA.COLUMNS
+           WHERE table_schema = '${schemaName}'
+		     AND table_name LIKE '${modelName}'
+             AND column_name LIKE '${fieldName}'
   ),
   CONCAT("ALTER TABLE ${modelName} MODIFY COLUMN ${fieldName} ${columnType} ${field.isRequired ? 'NOT NULL' : ''} COMMENT ", "'${escapedComment.trim()}'"),
   "SELECT 1"
