@@ -49,7 +49,7 @@ SET @preparedStatement = (SELECT IF(EXISTS
            WHERE table_schema = '${schemaName}'
              AND table_name LIKE '${modelName}'
   ),
-  CONCAT("ALTER TABLE ${modelName} COMMENT ", '"${tableComment.trim()}"'),
+  CONCAT("ALTER TABLE ${modelName} COMMENT ", "'${tableComment.trim()}'"),
   "SELECT 1"
 ));
 PREPARE alterIfExists FROM @preparedStatement;
@@ -85,13 +85,9 @@ DEALLOCATE PREPARE alterIfExists;
 			const commentTemplate = `
 SET @preparedStatement = (SELECT IF(EXISTS
   (
-    SELECT table_name 
-            FROM INFORMATION_SCHEMA.TABLES
-           WHERE table_schema = '${schemaName}'
-             AND table_name LIKE '${modelName}'
-			 AND column_name LIKE '${fieldName}'
+    SHOW COLUMNS FROM ${modelName} LIKE '${fieldName}'
   ),
-  CONCAT("ALTER TABLE ${modelName} MODIFY COLUMN ${fieldName} ${columnType} ${field.isRequired ? 'NOT NULL' : ''} COMMENT ", '"${escapedComment.trim()}"'),
+  CONCAT("ALTER TABLE ${modelName} MODIFY COLUMN ${fieldName} ${columnType} ${field.isRequired ? 'NOT NULL' : ''} COMMENT ", "'${escapedComment.trim()}'"),
   "SELECT 1"
 ));
 PREPARE alterIfExists FROM @preparedStatement;
