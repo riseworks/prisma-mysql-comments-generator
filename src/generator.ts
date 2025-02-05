@@ -16,7 +16,7 @@ const toSnakeCase = (str: string) => {
 		.replace(regex, '')
 		.replace(/\s+/g, '_')
 		.toLowerCase()
-}
+} 
 
 const { generatorHandler } = gh.default
 
@@ -30,6 +30,7 @@ const mysqlMappings = {
 	DateTime: 'DATETIME(3)',
 	Json: 'JSON',
 } as const
+const stringFieldTypes = ['String', 'Json']
 const generateModelComment = (
 	schemaName: string,
 	model: gh.DMMF.Model,
@@ -91,7 +92,7 @@ SET @preparedStatement = (SELECT IF(EXISTS
 		     AND table_name LIKE '${modelName}'
              AND column_name LIKE '${fieldName}'
   ),
-  CONCAT("ALTER TABLE ${modelName} MODIFY COLUMN ${fieldName} ${columnType} ${field.isRequired ? 'NOT NULL' : ''} COMMENT ", "'${escapedComment.trim()}'"),
+  CONCAT("ALTER TABLE ${modelName} MODIFY COLUMN ${fieldName} ${columnType} ${field.isRequired ? 'NOT NULL' : ''} ${field.hasDefaultValue ? `DEFAULT ${stringFieldTypes.includes(field.type) ? `'${field.default}'` : field.default}` : ''} COMMENT ", "'${escapedComment.trim()}'"),
   "SELECT 1"
 ));
 PREPARE alterIfExists FROM @preparedStatement;
