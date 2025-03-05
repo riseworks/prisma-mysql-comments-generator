@@ -156,7 +156,7 @@ export async function generate({
 			`${outputDir}/.comments-lock`,
 		)
 		const date = new Date()
-		date.setMilliseconds(0)
+		date.setMinutes(date.getMinutes() + 1)
 		const dateStr = String(Number(date
 			.toISOString()
 			.replace(/[:\-TZ]/g, '')
